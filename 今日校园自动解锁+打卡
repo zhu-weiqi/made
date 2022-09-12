@@ -1,0 +1,223 @@
+/**
+
+ * @QQ: 3180461872
+
+ * @Date: 2022-09-05 13:12:21
+
+ * @LastEditTime: 2022-06-09 20:47:35
+
+ * 见笑了
+
+ */
+
+
+//基于auto.js运行
+/*解锁屏幕自动完成*/
+
+auto()
+
+/*判断屏幕锁定，解锁屏幕（数字密码）*/
+
+if (!device.isScreenOn()){ //息屏状态将屏幕唤醒
+
+    device.wakeUp();//唤醒设备
+
+    sleep(1000); // 等待屏幕亮起
+
+
+
+    swipe(700, 1900, 700, 450, 300);//上滑
+
+    sleep(1000);
+
+
+
+//解锁 密码012345（改成自己的锁屏密码，只支持数字）
+
+    desc(0).findOne().click();
+
+    desc(1).findOne().click();
+
+    desc(2).findOne().click();
+
+    desc(3).findOne().click();
+
+    desc(4).findOne().click();
+
+    desc(5).findOne().click();
+
+//等待解锁完成，返回并退出
+
+}
+
+
+
+var my = {}
+
+my.appName = "今日校园"
+
+my.isSubmit=true           //只点击当天的
+
+
+
+console.show()
+
+auto.waitFor()
+
+log("垃圾应用，请勿倒卖——zwq")
+
+log("测试版本，若不成功，先将今日校园后台退掉")
+
+sleep(5000)
+
+log("查看是否打开手机无障碍权限")
+
+sleep(500)
+
+//开始
+
+if (launchApp(my.appName)) {
+
+    log("打开 app 等待进入主页")
+
+    log("早上好！")
+
+    text("讯息").waitFor()
+
+    sleep(500)
+
+    if (text("讯息").findOne().parent().parent().click()) {
+
+        log("进入讯息通知")
+
+        sleep(500)
+
+        if (text("辅导员通知").findOne().parent().parent().parent().click()) {
+
+            log("进入辅导员通知")
+
+            sleep(500)
+
+
+
+            var objectWriting = textContains("未填写").find()
+
+            
+
+        }
+
+        var writing=objectWriting[objectWriting.length-1] 
+
+        if(objectWriting.length==0) {
+
+            log("签到没了！")
+
+            sleep(3000)
+
+            console.hide()
+
+            exit()
+
+        }
+
+        //var writing=objectWriting[objectWriting.length-1] 
+
+        if (writing.parent().parent().parent().click()) {
+
+            log("进入签到")
+
+            log("等待界面加载")
+
+            sleep(500)
+
+            auto1()
+
+            sleep(500)
+
+                
+
+            log("脚本执行完毕")
+
+            sleep(1000)
+
+            device.vibrate(500)
+
+
+
+            log("五秒后退出")
+
+            sleep(5000)
+
+            console.hide()
+
+            home()
+
+            exit()
+
+                
+
+            } else {
+
+                log("请关闭应用重新打开")
+
+                toast("打卡失败")
+
+                }
+
+        } else {
+
+            log("请关闭应用重新打开脚本")
+
+            }
+
+    
+
+} else {
+
+    log("打开APP失败")
+
+}
+
+function auto1() {
+
+    sleep(500)
+
+    scrollDown()   
+
+
+
+    sleep(2000)
+
+    className("android.widget.CheckBox").text(" 确认已认真查看，且填写信息无误").waitFor()
+
+        log("确认已认真查看，且填写信息无误")
+
+        sleep(2000)
+
+        
+
+    if (text("提交").findOne().click()) {
+
+        log("确认提交")
+
+        sleep(2000)
+
+    }
+
+    className("android.widget.Button").text("提交").findOne().click()
+
+        log("又是美好的一天！")
+
+        sleep(1000)
+
+    
+
+    sleep(200)
+
+}
+
+
+
+// 点击脚本右边的菜单按钮->更多->定时任务即可定时运行脚本，但是必须保持Auto.js后台运行(自启动白名单、电源管理白名单等)。
+
+// 同时，可以在脚本的开头使用device.wakeUp()来唤醒屏幕；但是，Auto.js没有解锁屏幕的功能，因此难以在有锁屏密码的设备上达到效果。
